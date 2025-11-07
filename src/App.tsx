@@ -16,6 +16,9 @@ import { InfoPanel } from "./components/InfoPanel";
 import "./App.css";
 
 function App() {
+  const [illusionType, setIllusionType] = useState<"stairs" | "triangle">(
+    "stairs"
+  );
   const [showTrueGeometry, setShowTrueGeometry] = useState(false);
   const [autoRotate, setAutoRotate] = useState(false);
   const [animationSpeed, setAnimationSpeed] = useState(1);
@@ -25,13 +28,23 @@ function App() {
     <div className="app">
       {/* Header */}
       <header className="header">
-        <h1>🏛️ The Penrose Stairs Illusion</h1>
-        <p className="subtitle">An Impossible Staircase in 3D</p>
+        <h1>
+          🏛️{" "}
+          {illusionType === "stairs"
+            ? "The Penrose Stairs Illusion"
+            : "The Penrose Triangle Illusion"}
+        </h1>
+        <p className="subtitle">
+          {illusionType === "stairs"
+            ? "An Impossible Staircase in 3D"
+            : "An Impossible Triangle in 3D"}
+        </p>
       </header>
 
       {/* 3D Scene */}
       <div className="scene-container">
         <Scene
+          illusionType={illusionType}
           showTrueGeometry={showTrueGeometry}
           autoRotate={autoRotate}
           animationSpeed={animationSpeed}
@@ -40,6 +53,10 @@ function App() {
 
       {/* Interactive Controls */}
       <Controls
+        illusionType={illusionType}
+        onToggleIllusionType={() =>
+          setIllusionType(illusionType === "stairs" ? "triangle" : "stairs")
+        }
         showTrueGeometry={showTrueGeometry}
         onToggleGeometry={() => setShowTrueGeometry(!showTrueGeometry)}
         autoRotate={autoRotate}

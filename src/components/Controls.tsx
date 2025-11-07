@@ -10,6 +10,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import "./Controls.css";
 
 interface ControlsProps {
+  illusionType: "stairs" | "triangle";
+  onToggleIllusionType: () => void;
   showTrueGeometry: boolean;
   onToggleGeometry: () => void;
   autoRotate: boolean;
@@ -20,6 +22,8 @@ interface ControlsProps {
 }
 
 export function Controls({
+  illusionType,
+  onToggleIllusionType,
   showTrueGeometry,
   onToggleGeometry,
   autoRotate,
@@ -52,6 +56,30 @@ export function Controls({
 
             <div className="control-group">
               <h3>🎮 View Controls</h3>
+
+              {/* Toggle Illusion Type */}
+              <div className="control-item">
+                <label>
+                  Illusion Type:
+                  <span className={`mode-indicator illusion-type`}>
+                    {illusionType === "stairs"
+                      ? "🪜 Penrose Stairs"
+                      : "🔺 Penrose Triangle"}
+                  </span>
+                </label>
+                <button
+                  className="toggle-button"
+                  onClick={onToggleIllusionType}
+                >
+                  {illusionType === "stairs"
+                    ? "Switch to Triangle"
+                    : "Switch to Stairs"}
+                </button>
+                <p className="control-description">
+                  Choose between the impossible staircase and the impossible
+                  triangle.
+                </p>
+              </div>
 
               {/* Toggle Geometry Button */}
               <div className="control-item">

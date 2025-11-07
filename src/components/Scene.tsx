@@ -12,15 +12,18 @@ import {
   Environment,
 } from "@react-three/drei";
 import { PenroseStairs } from "./PenroseStairs";
+import { PenroseTriangle } from "./PenroseTriangle";
 import { AnimatedBall } from "./AnimatedBall";
 
 interface SceneProps {
+  illusionType: "stairs" | "triangle";
   showTrueGeometry: boolean;
   autoRotate: boolean;
   animationSpeed: number;
 }
 
 export function Scene({
+  illusionType,
   showTrueGeometry,
   autoRotate,
   animationSpeed,
@@ -65,14 +68,18 @@ export function Scene({
       {/* Environment for realistic reflections */}
       <Environment preset="city" />
 
-      {/* The Penrose Stairs */}
-      <PenroseStairs showTrueGeometry={showTrueGeometry} />
-
-      {/* Animated Ball traveling the stairs */}
-      <AnimatedBall
-        showTrueGeometry={showTrueGeometry}
-        speed={animationSpeed}
-      />
+      {/* Render either Penrose Stairs or Penrose Triangle */}
+      {illusionType === "stairs" ? (
+        <>
+          <PenroseStairs showTrueGeometry={showTrueGeometry} />
+          <AnimatedBall
+            showTrueGeometry={showTrueGeometry}
+            speed={animationSpeed}
+          />
+        </>
+      ) : (
+        <PenroseTriangle showTrueGeometry={showTrueGeometry} />
+      )}
 
       {/* Ground plane with shadows */}
       <mesh
