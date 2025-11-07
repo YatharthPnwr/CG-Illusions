@@ -13,10 +13,11 @@ import {
 } from "@react-three/drei";
 import { PenroseStairs } from "./PenroseStairs";
 import { PenroseTriangle } from "./PenroseTriangle";
+import { ImpossibleCube } from "./ImpossibleCube";
 import { AnimatedBall } from "./AnimatedBall";
 
 interface SceneProps {
-  illusionType: "stairs" | "triangle";
+  illusionType: "stairs" | "triangle" | "cube";
   showTrueGeometry: boolean;
   autoRotate: boolean;
   animationSpeed: number;
@@ -77,8 +78,10 @@ export function Scene({
             speed={animationSpeed}
           />
         </>
-      ) : (
+      ) : illusionType === "triangle" ? (
         <PenroseTriangle showTrueGeometry={showTrueGeometry} />
+      ) : (
+        <ImpossibleCube showTrueGeometry={showTrueGeometry} />
       )}
 
       {/* Ground plane with shadows */}

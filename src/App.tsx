@@ -16,29 +16,52 @@ import { InfoPanel } from "./components/InfoPanel";
 import "./App.css";
 
 function App() {
-  const [illusionType, setIllusionType] = useState<"stairs" | "triangle">(
-    "stairs"
-  );
+  const [illusionType, setIllusionType] = useState<
+    "stairs" | "triangle" | "cube"
+  >("stairs");
   const [showTrueGeometry, setShowTrueGeometry] = useState(false);
   const [autoRotate, setAutoRotate] = useState(false);
   const [animationSpeed, setAnimationSpeed] = useState(1);
   const [showInfo, setShowInfo] = useState(false);
 
+  const getTitle = () => {
+    switch (illusionType) {
+      case "stairs":
+        return "The Penrose Stairs Illusion";
+      case "triangle":
+        return "The Penrose Triangle Illusion";
+      case "cube":
+        return "The Impossible Cube Illusion";
+    }
+  };
+
+  const getSubtitle = () => {
+    switch (illusionType) {
+      case "stairs":
+        return "An Impossible Staircase in 3D";
+      case "triangle":
+        return "An Impossible Triangle in 3D";
+      case "cube":
+        return "The Escher Cube - Ambiguous Perspective";
+    }
+  };
+
+  const cycleIllusionType = () => {
+    if (illusionType === "stairs") {
+      setIllusionType("triangle");
+    } else if (illusionType === "triangle") {
+      setIllusionType("cube");
+    } else {
+      setIllusionType("stairs");
+    }
+  };
+
   return (
     <div className="app">
       {/* Header */}
       <header className="header">
-        <h1>
-          🏛️{" "}
-          {illusionType === "stairs"
-            ? "The Penrose Stairs Illusion"
-            : "The Penrose Triangle Illusion"}
-        </h1>
-        <p className="subtitle">
-          {illusionType === "stairs"
-            ? "An Impossible Staircase in 3D"
-            : "An Impossible Triangle in 3D"}
-        </p>
+        <h1>🏛️ {getTitle()}</h1>
+        <p className="subtitle">{getSubtitle()}</p>
       </header>
 
       {/* 3D Scene */}
@@ -54,9 +77,7 @@ function App() {
       {/* Interactive Controls */}
       <Controls
         illusionType={illusionType}
-        onToggleIllusionType={() =>
-          setIllusionType(illusionType === "stairs" ? "triangle" : "stairs")
-        }
+        onToggleIllusionType={cycleIllusionType}
         showTrueGeometry={showTrueGeometry}
         onToggleGeometry={() => setShowTrueGeometry(!showTrueGeometry)}
         autoRotate={autoRotate}

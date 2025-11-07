@@ -10,7 +10,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import "./Controls.css";
 
 interface ControlsProps {
-  illusionType: "stairs" | "triangle";
+  illusionType: "stairs" | "triangle" | "cube";
   onToggleIllusionType: () => void;
   showTrueGeometry: boolean;
   onToggleGeometry: () => void;
@@ -64,20 +64,20 @@ export function Controls({
                   <span className={`mode-indicator illusion-type`}>
                     {illusionType === "stairs"
                       ? "🪜 Penrose Stairs"
-                      : "🔺 Penrose Triangle"}
+                      : illusionType === "triangle"
+                      ? "🔺 Penrose Triangle"
+                      : "🧊 Impossible Cube"}
                   </span>
                 </label>
                 <button
                   className="toggle-button"
                   onClick={onToggleIllusionType}
                 >
-                  {illusionType === "stairs"
-                    ? "Switch to Triangle"
-                    : "Switch to Stairs"}
+                  Switch Illusion
                 </button>
                 <p className="control-description">
-                  Choose between the impossible staircase and the impossible
-                  triangle.
+                  Cycle through different impossible objects: stairs, triangle,
+                  and cube.
                 </p>
               </div>
 
